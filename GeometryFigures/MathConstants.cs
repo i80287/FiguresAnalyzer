@@ -1,10 +1,10 @@
 ﻿namespace GeometryFigures
 {
     /// <summary>
-    /// Class for mathematical constants.
+    /// Represents a class for the mathematical constants.
     /// </summary>
     /// <remarks>
-    /// Class for mathematical constants needed
+    /// Contains mathematical constants needed
     /// to calculate parts of geometric shapes.
     /// </remarks>
     internal static class MathConstants

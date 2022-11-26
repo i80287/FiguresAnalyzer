@@ -3,13 +3,12 @@
 namespace GeometryFigures
 {
     /// <summary>
-    /// Base figure class. 
+    /// Represents a class for any regular polygon.
     /// </summary>
     /// <remarks>
-    /// Base figure class for the regular polygons. 
-    /// Contains basic methods for calculating area 
-    /// and radius of the circumscribed circle of
-    /// the figure.
+    /// Contains basic methods for calculating 
+    /// area and radius of the circumscribed 
+    /// circle of the figure.
     /// </remarks>
     public class Figure
     {
@@ -26,14 +25,27 @@ namespace GeometryFigures
         /// </summary>
         protected double _sideLength = 0.0;
 
-        protected Figure() : this(new Point[0]) { }
+        protected Figure() { }
 
         /// <summary>
         /// Сonstructor of the regular polygon.
         /// </summary>
-        /// <param name="points">Array with the vertices of the regular polygon.</param>
+        /// <param name="points">
+        /// Array with the vertices of the regular polygon. 
+        /// Array length should be at least 2.
+        /// </param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public Figure(Point[] points)
         {
+            if (points is null)
+            {
+                throw new ArgumentNullException("Provided array with points was not initialized.");
+            }
+            if (points.Length < 2)
+            {
+                throw new ArgumentException("Array with points can not contain less then 2 points");
+            }
             _n = points.Length;
             _points = new Point[_n];
             Array.Copy(points, _points, _n);
@@ -57,20 +69,15 @@ namespace GeometryFigures
         /// </summary>
         /// <remarks>
         /// By default area is calculated by the formula:
-        /// S = (n * a^2) / (4 * tan(pi / n)
+        /// S = (n * a * a) / (4 * tan(pi / n)
         /// </remarks>
         /// <returns>Area of the regular polygon.</returns>
         public virtual double Area()
             => _n * _sideLength * _sideLength / (4 * Math.Tan(Math.PI / _n));
 
         public override string ToString()
-        {
-            string coords = string.Join<Point>(' ', _points);
-            string type = GetType().ToString();
-            double area = Area();
-            return $"{type} {coords} {_sideLength} {area}";
-        }
-
-        public new virtual Type GetType() => typeof(Figure);
+            => $"{GetType()} {_points[0]} {_sideLength}";
+        
+        public new virtual string GetType() => "Figure";
     }
 }

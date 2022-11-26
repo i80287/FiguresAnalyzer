@@ -1,6 +1,11 @@
-﻿namespace GeometryFigures
+﻿using System;
+
+namespace GeometryFigures
 {
-    public class EqTriangle : Figure
+    /// <summary>
+    /// Represents a class for the equilateral triangle.
+    /// </summary>
+    public sealed class EqTriangle : Figure
     {
         /// <summary>
         /// Constructor of the equilateral 
@@ -21,8 +26,18 @@
         /// </summary>
         /// <param name="point">Lower left vertex.</param>
         /// <param name="length">Length of the equilateral triangle side.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public EqTriangle(Point point, double length)
         {
+            if (point is null)
+            {
+                throw new ArgumentNullException($"{nameof(point)} was not initialized.");
+            }
+            if (length < double.Epsilon)
+            {
+                throw new ArgumentException("Length of the side of the triangle can not be less then 0.");
+            }
             _points = CalcAllEquilTriangVertices(point, length);
             _n = _points.Length;
             _sideLength = length;
@@ -37,11 +52,13 @@
             => _sideLength / MathConstants.SQRT3;
 
         /// <summary>
-        /// Calculate area of equilateral triangle.
+        /// Calculate area of the equilateral triangle.
         /// </summary>
         /// <returns>Area of the equilateral triangle.</returns>
         public override double Area()
             => _sideLength * _sideLength * MathConstants.SQRT3 / 4;
+
+        public override string GetType() => "EqTriangle";
 
         /// <summary>
         /// Calculate all 3 vertices of the 
@@ -51,7 +68,7 @@
         /// <param name="point">Lower left vertex.</param>
         /// <param name="length">Length of the side of the triangle.</param>
         /// <returns>Array with 3 vertices of the equilateral triangle</returns>
-        public Point[] CalcAllEquilTriangVertices(Point point, double length)
+        private static Point[] CalcAllEquilTriangVertices(Point point, double length)
         {
             Point[] points = new Point[3];
             points[0] = new Point(point);

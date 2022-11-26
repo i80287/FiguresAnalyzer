@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeometryFigures\GeometryFigures.csproj" />
+    <ProjectReference Include="..\IOTools\IOTools.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace GeometryFigures
 {
@@ -88,5 +89,54 @@ namespace GeometryFigures
         public new virtual string GetType() => "Figure";
 
         public override string ToString() => $"{GetType()} {_points[0]} {_sideLength}";
+
+        /// <summary>
+        /// Converts data from the string to the figure.
+        /// </summary>
+        /// <param name="line">A string containing figure data to convert.</param>
+        /// <param name="figure">Figure to initialize based on the data from the string.</param>
+        /// <returns>true if line was converted successfully; otherwise, false.</returns>
+        public static bool TryParse(string line, out Figure figure)
+        {
+            figure = new Figure();
+            if (line is null)
+            {
+                return false;
+            }
+            const string LINEPATTERN = "^(?:(Square|EqTriangle)) -?\\d+((\\.|\\,)\\d+)? -?\\d+((\\.|\\,)\\d+)? \\d+((\\.|\\,)\\d+)?$";
+            if (!Regex.IsMatch(line, LINEPATTERN))
+            {
+                return false;
+            }
+            string[] lineArgs = Regex.Replace(line, ",", ".").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string xArg = lineArgs[1];
+            string yArg = lineArgs[2];
+            string sideLengthArg = lineArgs[3];
+            if (!double.TryParse(xArg, out double x))
+            {
+                return false;
+            }
+            if (!double.TryParse(yArg, out double y))
+            {
+                return false;
+            }
+            if (!double.TryParse(sideLengthArg, out double sideLenght))
+            {
+                return false;
+            }
+            if (sideLenght < double.Epsilon)
+            {
+                return false;
+            }
+            if (lineArgs[0].Equals("Square"))
+            {
+                figure = new Square(x, y, sideLenght);
+            }
+            else
+            {
+                figure = new EqTriangle(x, y, sideLenght);
+            }
+            return true;
+        }
     }
 }

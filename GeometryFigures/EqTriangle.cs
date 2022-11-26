@@ -16,6 +16,7 @@ namespace GeometryFigures
         /// <param name="x">Abscissa of the lower left vertex.</param>
         /// <param name="y">Ordinate of the lower left vertex.</param>
         /// <param name="length">Length of the equilateral triangle side.</param>
+        /// <exception cref="ArgumentException"></exception>
         public EqTriangle(double x, double y, double length) : 
             this(new Point(x, y), length)
         { 

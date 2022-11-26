@@ -9,13 +9,21 @@ namespace FiguresAnalyzer
         private static void Main(string[] args)
             => new Program().Run();
 
-        public void Run()
+        public Program()
         {
             ChangeLocale();
+        }
+
+        public void Run()
+        {
             EqTriangle eqTriangle = new EqTriangle(0, 0, 1);
             Console.WriteLine(eqTriangle.Area());
             Console.WriteLine(eqTriangle.CircumscribedCircleRadius());
             Console.WriteLine(eqTriangle.ToString());
+            Square square = new Square(0, 0, 4);
+            Console.WriteLine(square.Area());
+            Console.WriteLine(square.CircumscribedCircleRadius());
+            Console.WriteLine(square.ToString());
         }
 
         private void ChangeLocale()

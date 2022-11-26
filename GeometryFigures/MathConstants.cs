@@ -1,7 +1,7 @@
 ﻿namespace GeometryFigures
 {
     /// <summary>
-    /// Represents a class for the mathematical constants.
+    /// Represents a class with mathematical constants.
     /// </summary>
     /// <remarks>
     /// Contains mathematical constants needed

@@ -25,7 +25,13 @@ namespace GeometryFigures
         /// </summary>
         protected double _sideLength = 0.0;
 
-        protected Figure() { }
+        /// <summary>
+        /// Empty constructor in case derived classes 
+        /// will call base constructor without parameters.
+        /// </summary>
+        protected Figure() 
+        { 
+        }
 
         /// <summary>
         /// Сonstructor of the regular polygon.
@@ -75,9 +81,12 @@ namespace GeometryFigures
         public virtual double Area()
             => _n * _sideLength * _sideLength / (4 * Math.Tan(Math.PI / _n));
 
-        public override string ToString()
-            => $"{GetType()} {_points[0]} {_sideLength}";
-        
+        /// <summary>
+        /// Get geometric type of the instance.
+        /// </summary>
+        /// <returns>Type of the instance.</returns>
         public new virtual string GetType() => "Figure";
+
+        public override string ToString() => $"{GetType()} {_points[0]} {_sideLength}";
     }
 }

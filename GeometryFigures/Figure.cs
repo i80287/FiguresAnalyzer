@@ -16,11 +16,11 @@ namespace GeometryFigures
         /// <summary>
         /// Array with vertices of the regular polygon.
         /// </summary>
-        protected readonly Point[] _points;
+        protected Point[] _points;
         /// <summary>
         /// Amout of vertices of the regular polygon.
         /// </summary>
-        protected readonly int _n;
+        protected int _n;
         /// <summary>
         /// Length of the regular polygon side.
         /// </summary>
@@ -44,11 +44,10 @@ namespace GeometryFigures
         /// of the regular polygon with n vertices.
         /// </summary>
         /// <remarks>
-        /// By default calculation by the general formula 
-        /// for the radius of the circumscribed circle:
+        /// By default radius is calculated by the formula:
         /// R = a / (2 * sin(pi / n))
         /// </remarks>
-        /// <returns>Radius of the circle.</returns>
+        /// <returns>Radius of the circumscribed circle.</returns>
         public virtual double CircumscribedCircleRadius()
             => _sideLength / (2 * Math.Sin(Math.PI / _n));
 
@@ -57,8 +56,7 @@ namespace GeometryFigures
         /// polygon with n vertices.
         /// </summary>
         /// <remarks>
-        /// By default calculation by the general formula 
-        /// for the area of the regular polygon:
+        /// By default area is calculated by the formula:
         /// S = (n * a^2) / (4 * tan(pi / n)
         /// </remarks>
         /// <returns>Area of the regular polygon.</returns>

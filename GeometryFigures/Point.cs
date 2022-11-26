@@ -14,7 +14,9 @@
 
         public Point() : this(0.0, 0.0) { }
 
-        public Point(double x, double y) => (_x, _y) = (x, y);       
+        public Point(double x, double y) => (_x, _y) = (x, y);
+
+        public Point(Point point) => new Point(point.X, point.Y);
 
         public override string ToString() => $"{_x} {_y}";
     }

@@ -70,14 +70,16 @@ namespace GeometryFigures
         /// to sort by radius.
         /// </summary>
         /// <returns>Radius IComparer</returns>
-        public static IComparer<Figure> SortRadiusDescending() => new InverseCompareByRadius();
+        public static IComparer<Figure> SortRadiusDescending() 
+            => new InverseCompareByRadius();
 
         /// <summary>
         /// Method to return IComparer  
         /// to sort by area.
         /// </summary>
         /// <returns>Area IComparer</returns>
-        public static IComparer<Figure> SortAreaDescending() => new InverseCompareByArea();
+        public static IComparer<Figure> SortAreaDescending() 
+            => new InverseCompareByArea();
 
         /// <summary>
         /// Method to return IComparer to 
@@ -85,7 +87,8 @@ namespace GeometryFigures
         /// circumscribed circle and area.
         /// </summary>
         /// <returns>Radius and area IComparer</returns>
-        public static IComparer<Figure> SortRadiusAndAreaDescending() => new InverseCompareByRadiusAndArea();
+        public static IComparer<Figure> SortRadiusAndAreaDescending() 
+            => new InverseCompareByRadiusAndArea();
 
         /// <summary>
         /// Represents nested class with 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using IOTools;
 using GeometryFigures;
-using System.Text;
 
 namespace FiguresAnalyzer
 {
@@ -13,6 +12,8 @@ namespace FiguresAnalyzer
         private const string savedDataReport = "Successfully saved data to the file:\n{0}\n";
         private const string savedDataErrorReport = "An error occured while attempting to write to the file.";
 
+        private ConsoleTable table;
+
         private static void Main(string[] args)
             => new Program().Run();
 
@@ -20,8 +21,8 @@ namespace FiguresAnalyzer
         {// Change locale to en-US 
          // to avoid errors with parsing
          // double numbers from the file.
-            ChangeLocale();
-        }
+            ChangeLocale();            
+        }                                                    
 
         /// <summary>
         /// Method with main program loop.
@@ -31,9 +32,11 @@ namespace FiguresAnalyzer
             do
             {
                 string[] data = FileTools.RequestDataFromFile();
-                Figure[] figures = ParseFigures(data);
+                Figure[] figures = ParseTools.ParseFigures(data);
+                table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
+                table.AddRows(figures);
                 Console.WriteLine(parseReport, figures.Length);
-                ConsoleTools.Print(figures, sep: '\n', end: "\n\n");
+                Console.WriteLine(table.ToString());
                 try
                 {
                     string fileFullPath = FileTools.WriteFiguresToFile(figures);
@@ -45,30 +48,6 @@ namespace FiguresAnalyzer
                 }
                 Console.WriteLine(askToContinueReport);
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
-        }
-
-        /// <summary>
-        /// Method to parse figures 
-        /// from the string array.
-        /// </summary>
-        /// <param name="data">String array with data about the figures.</param>
-        /// <returns>List of the parsed figures.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        private Figure[] ParseFigures(string[] data)
-        {
-            if (data is null)
-            {
-                throw new ArgumentNullException($"{nameof(data)} was not initialized");
-            }
-            List<Figure> figures = new List<Figure>(data.Length);
-            foreach (string line in data)
-            {
-                if (Figure.TryParse(line, out Figure figure))
-                {
-                    figures.Add(figure);
-                }
-            }
-            return figures.ToArray();
         }
 
         /// <summary>

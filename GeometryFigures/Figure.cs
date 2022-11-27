@@ -99,10 +99,11 @@ namespace GeometryFigures
         public static bool TryParse(string line, out Figure figure)
         {
             figure = new Figure();
-            if (line is null)
+            if (string.IsNullOrWhiteSpace(line))
             {
                 return false;
             }
+            line = line.Trim();
             const string LINEPATTERN = "^(?:(Square|EqTriangle)) -?\\d+((\\.|\\,)\\d+)? -?\\d+((\\.|\\,)\\d+)? \\d+((\\.|\\,)\\d+)?$";
             if (!Regex.IsMatch(line, LINEPATTERN))
             {
@@ -121,10 +122,6 @@ namespace GeometryFigures
                 return false;
             }
             if (!double.TryParse(sideLengthArg, out double sideLenght))
-            {
-                return false;
-            }
-            if (sideLenght < double.Epsilon)
             {
                 return false;
             }

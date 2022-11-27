@@ -59,7 +59,7 @@ namespace FiguresAnalyzer
         /// Method to write data from the 
         /// array of figures to the file.
         /// </summary>
-        /// <param name="figures"></param>
+        /// <param name="figures">Array of figures</param>
         private void WriteFiguresToFile(Figure[] figures)
         {
             try

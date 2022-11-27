@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using IOTools;
 using GeometryFigures;
 
@@ -20,6 +21,7 @@ namespace FiguresAnalyzer
         private const string askToContinueReport = "Press Escape to exit. Press any key to continue";
         private const string savedDataReport = "Successfully saved data with sorted figures to the file:\n{0}\n";
         private const string savedDataErrorReport = "An error occured while attempting to write to the file.";
+        private const string emptyFiguresReport = "Correct data about the figures was not found in the file.";
 
         private ConsoleTable table;
 
@@ -42,6 +44,12 @@ namespace FiguresAnalyzer
             {
                 string[] data = FileTools.RequestDataFromFile();
                 Figure[] figures = FigureTools.ParseFigures(data);
+                if (figures.Length == 0)
+                {
+                    Console.WriteLine(emptyFiguresReport);
+                    Console.WriteLine(askToContinueReport);
+                    continue;
+                }
                 FigureTools.SortFigures(figures, FigureTools.SortOptions.ByRadius);
 
                 table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
@@ -78,7 +86,9 @@ namespace FiguresAnalyzer
         /// </summary>
         private void ChangeLocale()
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            Console.InputEncoding = Encoding.GetEncoding("windows-1251");
+            Console.OutputEncoding = Encoding.UTF8;            
             System.Threading.Thread.CurrentThread.CurrentCulture
                 = new System.Globalization.CultureInfo("en-US", false);
             System.Threading.Thread.CurrentThread.CurrentUICulture

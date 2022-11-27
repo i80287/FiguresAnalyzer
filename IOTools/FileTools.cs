@@ -6,11 +6,12 @@ namespace IOTools
 {
     public static class FileTools
     {
-        private const string fileNameRequestReport = "Please type file name of the file with figures data\n\n"
+        private const string fileNameRequestReport = "\nPlease type file name of the file with figures data\n\n"
                                                    + "File will be searched in:\n{0}\n\n> ";
-        private const string badNameFormatReport = "Invalid file name format";
-        private const string missingFileReport = "File not found";
-        private const string fileReadErrorReport = "An error occured while reading the file. Please type file name again";
+        private const string badNameFormatReport = "Invalid file name format.";
+        private const string missingFileReport = "File not found.";
+        private const string fileReadErrorReport = "An error occured while reading the file. Please type file name again.";
+        private const string emptyFileReport = "Empty file is provided. Please type file name again.";
 
         private static readonly Encoding readEncoding;
         private static readonly Encoding writeEncoding;
@@ -88,6 +89,11 @@ namespace IOTools
             if (fileData is null)
             {
                 Console.WriteLine(fileReadErrorReport);
+                return RequestDataFromFile();
+            }
+            if (fileData.Length == 0)
+            {
+                Console.WriteLine(emptyFileReport);
                 return RequestDataFromFile();
             }
 

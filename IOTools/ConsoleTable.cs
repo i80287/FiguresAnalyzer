@@ -5,7 +5,11 @@ using System.Collections.Generic;
 
 namespace IOTools
 {
-    public class ConsoleTable
+    /// <summary>
+    /// Represens a class for processing input 
+    /// text data into console table format.
+    /// </summary>
+    public sealed class ConsoleTable
     {
         // Table line in format ┌──...──┐
         private string _startTableLine;
@@ -108,6 +112,10 @@ namespace IOTools
             return strBuilder.ToString();
         }
 
+        /// <summary>
+        /// Method to calculate table settings based
+        /// on the data cointained in the table.
+        /// </summary>
         private void RecalculateTableSettings()
         {
             for (int i = 0; i < _columnsCount; ++i)
@@ -235,10 +243,10 @@ namespace IOTools
         }
 
         /// <summary>
-        /// Function to build line in format │ elem1 │ ... │ elemK │
+        /// Function to build line in format │ row[0] │ ... │ row[k] │
         /// </summary>
         /// <param name="row">Row of the table.</param>
-        /// <returns>Line in format │ elem1 │ ... │ elemK │</returns>
+        /// <returns>Line in format │ row[0] │ ... │ row[k] │</returns>
         private string BuildLine(string[] row)
         {
             StringBuilder strBuilder = new StringBuilder("\u2502");

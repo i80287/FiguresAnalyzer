@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using IOTools;
 using GeometryFigures;
 
@@ -32,11 +31,12 @@ namespace FiguresAnalyzer
             do
             {
                 string[] data = FileTools.RequestDataFromFile();
-                Figure[] figures = ParseTools.ParseFigures(data);
+                Figure[] figures = FigureTools.ParseFigures(data);
+                FigureTools.SortFigures(figures, FigureTools.SortOptions.ByRadius | FigureTools.SortOptions.ByArea);
                 table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
                 table.AddRows(figures);
                 Console.WriteLine(parseReport, figures.Length);
-                Console.WriteLine(table.ToString());
+                Console.WriteLine(table);
                 try
                 {
                     string fileFullPath = FileTools.WritebjectsToFile(figures);

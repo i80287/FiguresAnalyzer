@@ -2,8 +2,18 @@
 using IOTools;
 using GeometryFigures;
 
+/// <remarks>
+/// "Вариант 16"
+/// This work made by
+/// kormilitsyn vladimir
+/// from group БПИ226.
+/// </remarks>
 namespace FiguresAnalyzer
 {
+    /// <summary>
+    /// Represents a class with 
+    /// main program loop.
+    /// </summary>
     public class Program
     {
         private const string parseReport = "Successfully parsed {0} figures:";
@@ -28,13 +38,15 @@ namespace FiguresAnalyzer
         /// </summary>
         public void Run()
         {
-            do
+            do 
             {
                 string[] data = FileTools.RequestDataFromFile();
                 Figure[] figures = FigureTools.ParseFigures(data);
                 FigureTools.SortFigures(figures, FigureTools.SortOptions.ByRadius);
+
                 table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
                 table.AddRows(figures);
+
                 Console.WriteLine(parseReport, figures.Length);
                 Console.WriteLine(table);
                 try
@@ -47,7 +59,8 @@ namespace FiguresAnalyzer
                     Console.WriteLine(savedDataErrorReport);
                 }
                 Console.WriteLine(askToContinueReport);
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+            } 
+            while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
 
         /// <summary>

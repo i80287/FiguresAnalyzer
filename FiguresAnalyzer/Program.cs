@@ -49,18 +49,28 @@ namespace FiguresAnalyzer
 
                 Console.WriteLine(parseReport, figures.Length);
                 Console.WriteLine(table);
-                try
-                {
-                    string fileFullPath = FileTools.WritebjectsToFile(figures);
-                    Console.WriteLine(savedDataReport, fileFullPath);
-                }
-                catch
-                {
-                    Console.WriteLine(savedDataErrorReport);
-                }
+                WriteFiguresToFile(figures);
                 Console.WriteLine(askToContinueReport);
             } 
             while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+        }
+
+        /// <summary>
+        /// Method to write data from the 
+        /// array of figures to the file.
+        /// </summary>
+        /// <param name="figures"></param>
+        private void WriteFiguresToFile(Figure[] figures)
+        {
+            try
+            {
+                string fileFullPath = FileTools.WritebjectsToFile(figures);
+                Console.WriteLine(savedDataReport, fileFullPath);
+            }
+            catch
+            {
+                Console.WriteLine(savedDataErrorReport);
+            }
         }
 
         /// <summary>

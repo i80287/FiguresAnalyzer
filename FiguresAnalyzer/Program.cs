@@ -25,7 +25,7 @@ namespace FiguresAnalyzer
         }                                                    
 
         /// <summary>
-        /// Method with main program loop.
+        /// Method with the main program loop.
         /// </summary>
         public void Run()
         {
@@ -39,7 +39,7 @@ namespace FiguresAnalyzer
                 Console.WriteLine(table.ToString());
                 try
                 {
-                    string fileFullPath = FileTools.WriteFiguresToFile(figures);
+                    string fileFullPath = FileTools.WritebjectsToFile(figures);
                     Console.WriteLine(savedDataReport, fileFullPath);
                 }
                 catch

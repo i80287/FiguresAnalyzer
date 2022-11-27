@@ -17,6 +17,10 @@ namespace IOTools
         private static readonly char[] invalidNameChars = Path.GetInvalidFileNameChars();
         private static readonly string currentWorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
+        /// <summary>
+        /// Static constructor to register encoding 
+        /// provider for the windows-1251 encoding.
+        /// </summary>
         static FileTools()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -31,7 +35,7 @@ namespace IOTools
         /// <param name="objects">Array of objects to write to the save.</param>
         /// <returns>File name in which data was written.</returns>
         /// <exception cref="IOException"></exception>
-        public static string WriteFiguresToFile(object[] objects)
+        public static string WritebjectsToFile(object[] objects)
         {
             string fileName = FindFreeFileName();
             string[] stringFigures = Array.ConvertAll(objects, obj => obj.ToString());
@@ -46,6 +50,11 @@ namespace IOTools
             }
         }
 
+        /// <summary>
+        /// Method to find not taken file name
+        /// in the current working directory.
+        /// </summary>
+        /// <returns>File name.</returns>
         private static string FindFreeFileName()
         {
             string fileName = "Data1.txt";
@@ -57,6 +66,11 @@ namespace IOTools
             return fileName;
         }
 
+        /// <summary>
+        /// Method to get data from the file. 
+        /// File name is selected by user.
+        /// </summary>
+        /// <returns>File data.</returns>
         public static string[] RequestDataFromFile()
         {
             string path = RequestPathToExistingFile();
@@ -80,6 +94,11 @@ namespace IOTools
             return fileData;
         }
 
+        /// <summary>
+        /// Method to request file name of the file
+        /// existing in the current working directory.
+        /// </summary>
+        /// <returns>File name.</returns>
         private static string RequestPathToExistingFile()
         {
             Console.Write(fileNameRequestReport, currentWorkingDirectory);
@@ -102,6 +121,11 @@ namespace IOTools
             return userInput;
         }
 
+        /// <summary>
+        /// Method to validate file name.
+        /// </summary>
+        /// <param name="fileName">File name to validate.</param>
+        /// <returns>true if name is valid; otherwise, false.</returns>
         private static bool ValidateFileName(string fileName)
             => fileName.IndexOfAny(invalidNameChars) == -1;
     }

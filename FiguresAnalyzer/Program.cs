@@ -8,7 +8,7 @@ namespace FiguresAnalyzer
     {
         private const string parseReport = "Successfully parsed {0} figures:";
         private const string askToContinueReport = "Press Escape to exit. Press any key to continue";
-        private const string savedDataReport = "Successfully saved data to the file:\n{0}\n";
+        private const string savedDataReport = "Successfully saved data with sorted figures to the file:\n{0}\n";
         private const string savedDataErrorReport = "An error occured while attempting to write to the file.";
 
         private ConsoleTable table;
@@ -32,7 +32,7 @@ namespace FiguresAnalyzer
             {
                 string[] data = FileTools.RequestDataFromFile();
                 Figure[] figures = FigureTools.ParseFigures(data);
-                FigureTools.SortFigures(figures, FigureTools.SortOptions.ByRadius | FigureTools.SortOptions.ByArea);
+                FigureTools.SortFigures(figures, FigureTools.SortOptions.ByRadius);
                 table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
                 table.AddRows(figures);
                 Console.WriteLine(parseReport, figures.Length);

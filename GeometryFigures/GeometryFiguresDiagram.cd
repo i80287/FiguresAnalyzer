@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GeometryFigures.Point">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryFigures.Square">
+    <Position X="3.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAEAAAAAAAAAAAEAAAAAAQAAAAA=</HashCode>
+      <FileName>Square.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryFigures.Figure">
+    <Position X="5.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAQAAAAAAAAAEgAAAAAAAAAAAAAEAAAAAAQCAAAA=</HashCode>
+      <FileName>Figure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryFigures.FigureTools">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="GeometryFigures.FigureTools.SortOptions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FigureTools.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="GeometryFigures.FigureTools.InverseCompareByRadius" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FigureTools.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="GeometryFigures.FigureTools.InverseCompareByArea" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FigureTools.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="GeometryFigures.FigureTools.InverseCompareByRadiusAndArea" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FigureTools.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABYAAAAEAAAAIAAAAAAAAA=</HashCode>
+      <FileName>FigureTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryFigures.EqTriangle">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAABAAEAAAAAAQAAAAA=</HashCode>
+      <FileName>EqTriangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeometryFigures.MathConstants">
+    <Position X="1.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>MathConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

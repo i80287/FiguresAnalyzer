@@ -6,17 +6,19 @@ namespace IOTools
 {
     public static class FileTools
     {
-        private const string fileNameRequestReport = "\nPlease type file name of the file with figures data.\n\n"
+        private const string FileNameRequestReport = "\nPlease type file name of the file with figures data.\n\n"
                                                    + "File will be searched in:\n{0}\n\n> ";
-        private const string badNameFormatReport = "Invalid file name format.";
-        private const string missingFileReport = "File {0} not found.";
-        private const string fileReadErrorReport = "An error occured while reading the file. Please type file name again.";
-        private const string emptyFileReport = "Empty file is provided. Please type file name again.";
+        private const string BadNameFormatReport = "Invalid file name format.";
+        private const string MissingFileReport = "File {0} not found.";
+        private const string FileReadErrorReport = "An error occured while reading the file. Please type file name again.";
+        private const string EmptyFileReport = "Empty file is provided. Please type file name again.";
 
-        private static readonly Encoding defaultReadEncoding;
-        private static readonly Encoding writeEncoding;
-        private static readonly char[] invalidNameChars = Path.GetInvalidFileNameChars();
-        private static readonly string currentWorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private const int FileNameSearchLimit = 8192;
+
+        private static readonly Encoding DefaultReadEncoding;
+        private static readonly Encoding WriteEncoding;
+        private static readonly char[] InvalidNameChars = Path.GetInvalidFileNameChars();
+        private static readonly string CurrentWorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         /// <summary>
         /// Static constructor to register encoding 
@@ -25,8 +27,8 @@ namespace IOTools
         static FileTools()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            writeEncoding = Encoding.GetEncoding("windows-1251");
-            defaultReadEncoding = Encoding.UTF8;
+            WriteEncoding = Encoding.GetEncoding("windows-1251");
+            DefaultReadEncoding = Encoding.UTF8;
         }
 
         /// <summary>
@@ -42,7 +44,7 @@ namespace IOTools
             string[] stringFigures = Array.ConvertAll(objects, obj => obj.ToString());
             try
             {
-                File.WriteAllLines(fileName, stringFigures, encoding: writeEncoding);
+                File.WriteAllLines(fileName, stringFigures, encoding: WriteEncoding);
                 return Path.GetFullPath(fileName);
             }
             catch (Exception ex)
@@ -60,7 +62,7 @@ namespace IOTools
         {
             string fileName = "Data1.txt";
             int i = 1;
-            while (File.Exists(fileName))
+            while (File.Exists(fileName) && i != FileNameSearchLimit)
             {
                 fileName = fileName.Replace(i.ToString(), (++i).ToString());
             }
@@ -88,12 +90,12 @@ namespace IOTools
 
             if (fileData is null)
             {
-                Console.WriteLine(fileReadErrorReport);
+                Console.WriteLine(FileReadErrorReport);
                 return RequestDataFromFile();
             }
             if (fileData.Length == 0)
             {
-                Console.WriteLine(emptyFileReport);
+                Console.WriteLine(EmptyFileReport);
                 return RequestDataFromFile();
             }
 
@@ -107,7 +109,7 @@ namespace IOTools
         /// <returns>File name.</returns>
         private static string RequestPathToExistingFile()
         {
-            Console.Write(fileNameRequestReport, currentWorkingDirectory);
+            Console.Write(FileNameRequestReport, CurrentWorkingDirectory);
             string userInput = Console.ReadLine();
             if (!userInput.EndsWith(".txt"))
             { userInput += ".txt"; }
@@ -116,13 +118,13 @@ namespace IOTools
             {
                 if (!ValidateFileName(userInput))
                 { 
-                    Console.WriteLine(badNameFormatReport); 
+                    Console.WriteLine(BadNameFormatReport); 
                 }
                 else
                 { 
-                    Console.WriteLine(missingFileReport, userInput); 
+                    Console.WriteLine(MissingFileReport, userInput); 
                 }
-                Console.Write(fileNameRequestReport, currentWorkingDirectory);
+                Console.Write(FileNameRequestReport, CurrentWorkingDirectory);
                 userInput = Console.ReadLine();
                 if (!userInput.EndsWith(".txt"))
                 { userInput += ".txt"; }
@@ -140,14 +142,14 @@ namespace IOTools
         /// <param name="fileName">File name to validate.</param>
         /// <returns>true if name is valid; otherwise, false.</returns>
         private static bool ValidateFileName(string fileName)
-            => fileName.IndexOfAny(invalidNameChars) == -1;
+            => fileName.IndexOfAny(InvalidNameChars) == -1;
 
         private static Encoding DetectEncoding(string path)
         {// Function to read first bytes of the file and peek an Encoding.
             byte[] bomBytes = ReadBomBytes(path);
             if (bomBytes.Length == 0)
             {
-                return defaultReadEncoding;
+                return DefaultReadEncoding;
             }
             return SelectEncoding(bomBytes);
         }
@@ -233,7 +235,7 @@ namespace IOTools
             }
 
             // File may not contain BOM.
-            return defaultReadEncoding;
+            return DefaultReadEncoding;
         }
     }
 }

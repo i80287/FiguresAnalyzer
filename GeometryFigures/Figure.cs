@@ -104,7 +104,7 @@ namespace GeometryFigures
                 return false;
             }
             line = line.Trim();
-            const string LINEPATTERN = "^(?:(Square|EqTriangle)) -?\\d+((\\.|\\,)\\d+)? -?\\d+((\\.|\\,)\\d+)? \\d+((\\.|\\,)\\d+)?$";
+            const string LINEPATTERN = "^(?:(Square|EqTriangle)) -?\\d+((\\.|\\,)\\d+)? -?\\d+((\\.|\\,)\\d+)? -?\\d+((\\.|\\,)\\d+)?$";
             if (!Regex.IsMatch(line, LINEPATTERN))
             {
                 return false;
@@ -124,6 +124,14 @@ namespace GeometryFigures
             if (!double.TryParse(sideLengthArg, out double sideLenght))
             {
                 return false;
+            }
+            if (sideLenght < 0D)
+            {
+                return false;
+            }
+            if (sideLenght.ToString().Equals("-0"))
+            {// If Figure side in file is written as -0.
+                sideLenght = 0D;
             }
             if (lineArgs[0].Equals("Square"))
             {

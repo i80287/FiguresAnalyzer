@@ -37,7 +37,7 @@ namespace GeometryFigures
             {
                 throw new ArgumentNullException($"{nameof(point)} was not initialized.");
             }
-            if (length < double.Epsilon)
+            if (length < 0D)
             {
                 throw new ArgumentException("Length of the side of the triangle can not be less then 0.");
             }

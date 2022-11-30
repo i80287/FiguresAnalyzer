@@ -142,7 +142,7 @@ namespace IOTools
         /// <param name="fileName">File name to validate.</param>
         /// <returns>true if name is valid; otherwise, false.</returns>
         private static bool ValidateFileName(string fileName)
-            => fileName.IndexOfAny(InvalidNameChars) == -1;
+            => fileName.Length > 4 && fileName.IndexOfAny(InvalidNameChars) == -1;
 
         private static Encoding DetectEncoding(string path)
         {// Function to read first bytes of the file and peek an Encoding.

@@ -23,7 +23,21 @@ namespace FiguresAnalyzer
         private const string SavedDataErrorReport = "An error occured while attempting to write to the file.";
         private const string EmptyFiguresReport = "Correct data about the figures was not found in the file.";
 
+        private static readonly ConsoleColor ErrorColor = ConsoleColor.Red;
+        private static readonly ConsoleColor SuccessColor = ConsoleColor.Green;
+        private static readonly ConsoleColor DefaultColor = Console.ForegroundColor;
+
         private ConsoleTable table;
+        
+        /// <summary>
+        /// Represents an enum to select 
+        /// figures parsing status.
+        /// </summary>
+        private enum ParseStatus
+        {
+            Success = 0,
+            Error = 1,
+        }
 
         private static void Main(string[] args)
             => new Program().Run();
@@ -46,7 +60,7 @@ namespace FiguresAnalyzer
                 Figure[] figures = FigureTools.ParseFigures(data);
                 if (figures.Length == 0)
                 {
-                    Console.WriteLine(EmptyFiguresReport);
+                    ReportParseStatus(EmptyFiguresReport, ParseStatus.Error);
                     Console.WriteLine(AskToContinueReport);
                     continue;
                 }
@@ -54,13 +68,26 @@ namespace FiguresAnalyzer
 
                 table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
                 table.AddRows(figures);
-
-                Console.WriteLine(ParseReport, figures.Length);
+                
+                ReportParseStatus(string.Format(ParseReport, figures.Length), ParseStatus.Success);
                 Console.WriteLine(table);
                 WriteFiguresToFile(figures);
                 Console.WriteLine(AskToContinueReport);
             } 
             while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+        }
+
+        /// <summary>
+        /// Method to notify user about figures parsing status.
+        /// </summary>
+        /// <param name="message">Notification message.</param>
+        /// <param name="parseStatus">Parsing status.</param>
+        private void ReportParseStatus(string message, ParseStatus parseStatus)
+        {
+            Console.ForegroundColor = 
+                parseStatus == ParseStatus.Success ? SuccessColor : ErrorColor;
+            Console.WriteLine(message);
+            Console.ForegroundColor = DefaultColor;
         }
 
         /// <summary>

@@ -22,13 +22,14 @@ namespace FiguresAnalyzer
         private const string SavedDataReport = "Successfully saved data with sorted figures to the file:\n{0}\n";
         private const string SavedDataErrorReport = "An error occured while attempting to write to the file.";
         private const string EmptyFiguresReport = "Correct data about the figures was not found in the file.";
+        private const string ExitMessage = "SEE YOU LATER DUDE!\n(c) From Deathtrack 1989";
 
         private static readonly ConsoleColor ErrorColor = ConsoleColor.Red;
         private static readonly ConsoleColor SuccessColor = ConsoleColor.Green;
         private static readonly ConsoleColor DefaultColor = Console.ForegroundColor;
 
         private ConsoleTable table;
-        
+
         /// <summary>
         /// Represents an enum to select 
         /// figures parsing status.
@@ -46,15 +47,15 @@ namespace FiguresAnalyzer
         {// Change locale to en-US 
          // to avoid errors with parsing
          // double numbers from the file.
-            ChangeLocale();            
-        }                                                    
+            ChangeLocale();
+        }
 
         /// <summary>
         /// Method with the main program loop.
         /// </summary>
         public void Run()
         {
-            do 
+            do
             {
                 string[] data = FileTools.RequestDataFromFile();
                 Figure[] figures = FigureTools.ParseFigures(data);
@@ -68,13 +69,24 @@ namespace FiguresAnalyzer
 
                 table = new ConsoleTable("Figure", "Abscissa", "Ordinate", "Side length");
                 table.AddRows(figures);
-                
+
                 ReportParseStatus(string.Format(ParseReport, figures.Length), ParseStatus.Success);
                 Console.WriteLine(table);
                 WriteFiguresToFile(figures);
                 Console.WriteLine(AskToContinueReport);
-            } 
+            }
             while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+            PrintExitMessage();
+        }
+
+        /// <summary>
+        /// Method to print exit 
+        /// message to the console.
+        /// </summary>
+        private void PrintExitMessage()
+        {
+            Console.WriteLine(ExitMessage);
+            Console.ReadKey(true);
         }
 
         /// <summary>
@@ -84,7 +96,7 @@ namespace FiguresAnalyzer
         /// <param name="parseStatus">Parsing status.</param>
         private void ReportParseStatus(string message, ParseStatus parseStatus)
         {
-            Console.ForegroundColor = 
+            Console.ForegroundColor =
                 parseStatus == ParseStatus.Success ? SuccessColor : ErrorColor;
             Console.WriteLine(message);
             Console.ForegroundColor = DefaultColor;
@@ -116,7 +128,7 @@ namespace FiguresAnalyzer
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Console.InputEncoding = Encoding.GetEncoding("windows-1251");
-            Console.OutputEncoding = Encoding.UTF8;            
+            Console.OutputEncoding = Encoding.UTF8;
             System.Threading.Thread.CurrentThread.CurrentCulture
                 = new System.Globalization.CultureInfo("en-US", false);
             System.Threading.Thread.CurrentThread.CurrentUICulture
